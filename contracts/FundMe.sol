@@ -21,6 +21,9 @@ contract FundMe {
 
     AggregatorV3Interface public priceFeed;
 
+    event FundSuccess(address indexed funders, uint256 indexed amount);
+    event WithdrawSuccess(address indexed owner, uint256 indexed amount);
+
     constructor(address _priceFee) public {
         owner = msg.sender;
         priceFeed = AggregatorV3Interface(_priceFee);
@@ -41,6 +44,7 @@ contract FundMe {
         // if not, add to mapping and funders array
         addressToAmountFunded[msg.sender] += msg.value;
         funders.push(msg.sender);
+        emit FundSuccess(msg.sender, msg.value);
     }
 
     function getConversionRate(uint256 ethAmount)
@@ -76,6 +80,7 @@ contract FundMe {
     }
 
     function withdraw() public payable onlyOwner {
+        emit WithdrawSuccess(msg.sender, address(this).balance);
         msg.sender.transfer(address(this).balance);
 
         // iterate through all the mappings and make them 0
@@ -91,4 +96,6 @@ contract FundMe {
         //funders array will be initialized to 0
         funders = new address[](0);
     }
+
+    function fallback() public payable {}
 }
