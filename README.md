@@ -2,7 +2,7 @@
 
 #### What is this project about?
 
-    Fund me is a smart contract that you can use to raise funds for someone who wants support and demand at least the equivalent of $50 in ETH and you can only withdraw it from the owner.
+Fund me is a smart contract that you can use to raise funds for someone who wants support and demand at least the equivalent of $50 in ETH and you can only withdraw it from the owner.
 
 This project is based on:
 
